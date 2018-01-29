@@ -135,6 +135,7 @@
 				TargetAttributes = {
 					B5F084111E7996A70058D4A2 = {
 						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = Y24QLZBP79;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
@@ -319,9 +320,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Y24QLZBP79;
 				INFOPLIST_FILE = PinCodeTextFieldExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = organization.PinCodeTextField;
+				PRODUCT_BUNDLE_IDENTIFIER = duukee.PinCodeTextField;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -332,9 +334,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Y24QLZBP79;
 				INFOPLIST_FILE = PinCodeTextFieldExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = organization.PinCodeTextField;
+				PRODUCT_BUNDLE_IDENTIFIER = duukee.PinCodeTextField;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;

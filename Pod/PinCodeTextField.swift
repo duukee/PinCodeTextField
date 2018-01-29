@@ -13,29 +13,42 @@ import UIKit
     public weak var delegate: PinCodeTextFieldDelegate?
     
     //MARK: Customizable from Interface Builder
+    
+    @IBInspectable public var squareBox: Bool = false
+    @IBInspectable public var circleBox: Bool = false
+
+    @IBInspectable public var borderWidth: CGFloat = 2
+    @IBInspectable public var borderColor: UIColor = UIColor.white
+    
+//    @IBInspectable public var separatorText: Bool = false
+//    @IBInspectable public var separatorColor: UIColor = UIColor.white
+
+    
+    // Underline
     @IBInspectable public var underlineWidth: CGFloat = 40
     @IBInspectable public var underlineHSpacing: CGFloat = 10
-    @IBInspectable public var underlineVMargin: CGFloat = 0
-    @IBInspectable public var characterLimit: Int = 5
+    @IBInspectable public var underlineTopMargin: CGFloat = 0
     @IBInspectable public var underlineHeight: CGFloat = 3
-    @IBInspectable public var placeholderText: String?
+    @IBInspectable public var underlineColor: UIColor = UIColor.darkGray
+    @IBInspectable public var updatedUnderlineColor: UIColor = UIColor.clear
+    @IBInspectable public var needToUpdateUnderlines: Bool = true
+
+    // Text
+    @IBInspectable public var characterLimit: Int = 5
     @IBInspectable public var text: String? {
         didSet {
             updateView()
         }
     }
-    
     @IBInspectable public var fontSize: CGFloat = 14 {
         didSet {
             font = font.withSize(fontSize)
         }
     }
-    @IBInspectable public var textColor: UIColor = UIColor.clear 
+    @IBInspectable public var textColor: UIColor = UIColor.clear
+    @IBInspectable public var placeholderText: String?
     @IBInspectable public var placeholderColor: UIColor = UIColor.lightGray
-    @IBInspectable public var underlineColor: UIColor = UIColor.darkGray
-    @IBInspectable public var updatedUnderlineColor: UIColor = UIColor.clear
     @IBInspectable public var secureText: Bool = false
-    @IBInspectable public var needToUpdateUnderlines: Bool = true
     
     //MARK: Customizable from code
     public var keyboardType: UIKeyboardType = UIKeyboardType.alphabet
@@ -53,6 +66,7 @@ import UIKit
             _inputView = newValue
         }
     }
+    
     
     // UIResponder
     private var _inputAccessoryView: UIView?
@@ -175,6 +189,8 @@ import UIKit
             label.font = font
             let isplaceholder = isPlaceholder(index)
             label.textColor = labelColor(isPlaceholder: isplaceholder)
+            label.layer.borderWidth = borderWidth
+            label.layer.borderColor = borderColor.cgColor
         }
     }
 
@@ -204,6 +220,8 @@ import UIKit
         label.font = font
         label.backgroundColor = UIColor.clear
         label.textAlignment = .center
+        label.layer.borderWidth = borderWidth
+        label.layer.borderColor = borderColor.cgColor
         return label
     }
     
@@ -222,7 +240,7 @@ import UIKit
         var currentLabelCenterX = currentUnderlineX + underlineWidth / 2
         
         let totalLabelHeight = font.ascender + font.descender
-        let underlineY = bounds.height / 2 + totalLabelHeight / 2 + underlineVMargin
+        let underlineY = bounds.height / 2 + totalLabelHeight / 2 + underlineTopMargin
         
         underlines.forEach{
             $0.frame = CGRect(x: currentUnderlineX, y: underlineY, width: underlineWidth, height: underlineHeight)
@@ -231,10 +249,20 @@ import UIKit
         
         labels.forEach {
             $0.sizeToFit()
-            let labelWidth = $0.bounds.width
+            
+            var labelWidth = $0.bounds.width
+            if squareBox || circleBox {
+                labelWidth = $0.bounds.height
+            }
+            
             let labelX = (currentLabelCenterX - labelWidth / 2).rounded(.down)
             $0.frame = CGRect(x: labelX, y: 0, width: labelWidth, height: bounds.height)
             currentLabelCenterX += underlineWidth + underlineHSpacing
+            
+            if circleBox {
+                $0.layer.cornerRadius = labelWidth / 2
+                $0.layer.masksToBounds = true
+            }
         }
         
     }
